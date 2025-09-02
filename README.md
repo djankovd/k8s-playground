@@ -20,3 +20,35 @@ Check subnetwork for metallb
 ```
 docker network inspect -f '{{.IPAM.Config}}' kind
 ```
+
+Create helmrepository
+```
+flux create source helm podinfo \
+--namespace=flux-system \
+--url=https://stefanprodan.github.io/podinfo \
+--interval=24h --export > podinfo-helmrepo.yaml
+```
+
+Create file locally
+```
+cat > podinfo-values.yaml <<EOL
+replicaCount: 2
+resources:
+  limits:
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 64Mi
+EOL
+```
+
+Create helmrelease
+```
+flux create helmrelease podinfo \
+--namespace=podinfo \
+--source=HelmRepository/podinfo \
+--release-name=podinfo \
+--chart=podinfo \
+--chart-version=">5.0.0" \
+--values=podinfo-values.yaml --export > podinfo-helmlrelease.yaml
+```
