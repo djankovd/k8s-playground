@@ -4,6 +4,7 @@ metadata:
   name: podinfo-ingress
   namespace: podinfo
 spec:
+  ingressClassName: nginx
   rules:
   - host: podinfo.local
     http:
