@@ -15,3 +15,8 @@ flux bootstrap github \
   --path=clusters/k8s-playground \
   --personal
 ```
+
+Check subnetwork for metallb
+```
+docker network inspect -f '{{.IPAM.Config}}' kind
+```
