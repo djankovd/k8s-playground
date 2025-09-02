@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: ingress
+spec:
+  chart:
+    spec:
+      chart: ingress-nginx
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: ingress
+        namespace: flux-system
+      version: 4.13.2
+  interval: 1m0s
+  releaseName: ingress-nginx
+  values:
+    controller:
+      ingressClass: nginx
+      ingressClassResource:
+        name: nginx
+        controllerValue: k8s.io/ingress-nginx
+      replicaCount: 2
+      resources:
+        limits:
+          cpu: 100m
+          memory: 512Mi
+        requests:
+          cpu: 10m
+          memory: 256Mi
+      extraArgs:
+        publish-status-address: 172.20.255.2
+      service:
+        annotations:
+          metallb.universe.tf/address-pool: demo-pool
+          metallb.universe.tf/loadBalancerIPs: 172.20.255.2
