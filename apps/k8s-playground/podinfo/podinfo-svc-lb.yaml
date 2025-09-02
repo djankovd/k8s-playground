@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/address-pool: demo-pool
+  name: podinfo-loadbalance
+  namespace: podinfo
+spec:
+  ports:
+  - name: http
+    port: 9898
+    protocol: TCP
+    targetPort: http
+  - name: grpc
+    port: 9999
+    protocol: TCP
+    targetPort: grpc
+  selector:
+    app.kubernetes.io/name: podinfo
+  sessionAffinity: None
+  type: LoadBalancer
