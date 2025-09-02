@@ -30,8 +30,6 @@ spec:
         requests:
           cpu: 10m
           memory: 256Mi
-      extraArgs:
-        publish-status-address: 172.20.255.2
       service:
         annotations:
           metallb.universe.tf/address-pool: demo-pool
