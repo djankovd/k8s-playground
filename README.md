@@ -26,6 +26,10 @@ Check subnetwork for metallb
 ```
 docker network inspect -f '{{.IPAM.Config}}' kind
 ```
+Check using podman
+```
+<podman network inspect kind --format '{{range .Subnets}}{{.Subnet}} {{.Gateway}}{{end}}'
+```
 
 Create helmrepository
 ```
