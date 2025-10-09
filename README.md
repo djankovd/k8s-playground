@@ -5,6 +5,12 @@ Create kind cluster
 kind create cluster --name k8s-playground --config kind-config.yaml
 ```
 
+if using rootless docker or podman:
+```
+systemd-run --scope --user -p "Delegate=yes" kind create cluster
+```
+more info: [rootless configuration](https://kind.sigs.k8s.io/docs/user/rootless/)
+
 Bootstrap flux
 ```
 flux bootstrap github \
