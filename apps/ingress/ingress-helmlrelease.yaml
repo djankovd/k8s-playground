@@ -33,4 +33,4 @@ spec:
       service:
         annotations:
           metallb.universe.tf/address-pool: demo-pool
-          metallb.universe.tf/loadBalancerIPs: 10.89.0.240
+          metallb.universe.tf/loadBalancerIPs: 172.20.255.2
